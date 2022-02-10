@@ -1,6 +1,51 @@
 from bs4 import BeautifulSoup
 
 from utils import better_request, pretty_print
+import re
+
+def scrape_rapid(name: str, url: str) -> None:
+    soup = BeautifulSoup(better_request(url, name).text, "lxml")
+    in_stock = soup.find('div', class_='stock-message-text').find('span', class_='green-text') is not None
+    # price = soup.find('span', class_='price price--withoutTax').text
+    price = '£TODO'
+    pretty_print(name, price, in_stock, start='\t')
+
+
+def scrape_cpc(name: str, url: str) -> None:
+    soup = BeautifulSoup(better_request(url, name).text, "lxml")
+    in_stock = soup.find('span', class_='availTxtMsg').string != 'Available for back order'
+    price = '£TODO'
+    pretty_print(name, price, in_stock, start='\t')
+
+
+def scrape_sb(name: str, url: str) -> None:
+    soup = BeautifulSoup(better_request(url, name).text, "lxml")
+    in_stock = soup.find('div', class_='product-form__payment-container').find('button').string != 'Sold out'
+    price = '£TODO'
+    pretty_print(name, price, in_stock, start='\t')
+
+
+def scrape_coolcomponents(name: str, url: str) -> None:
+    soup = BeautifulSoup(better_request(url, name).text, "lxml")
+    x = soup.find('span', class_='var-inv')
+    in_stock = x.string is not None
+    price = '£TODO'
+    pretty_print(name, price, in_stock, start='\t')
+
+
+def scrape_thepihut(name: str, url: str) -> None:
+    soup = BeautifulSoup(better_request(url, name).text, "lxml")
+    in_stock = soup.findAll('span', {'class' : re.compile('product-form__inventory.*')})[0].text.startswith('In stock')
+    price = '£TODO'
+    pretty_print(name, price, in_stock, start='\t')
+
+
+def scrape_pimoroni(name: str, url: str) -> None:
+    soup = BeautifulSoup(better_request(url, name).text, "lxml")
+    variant = url.split('=')[1]
+    in_stock = soup.find('div', class_=f'variant-detail variant-{variant}').find('span').text == 'In stock'
+    price = '£TODO'
+    pretty_print(name, price, in_stock, start='\t')
 
 
 def scrape_pishop(name: str, url: str) -> None:

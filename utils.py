@@ -32,9 +32,15 @@ def pretty_print(name: str, price: str, in_stock: bool, start='', date=None, oth
 
 
 def better_request(url: str, name: str, retry_time=4.0) -> requests.models.Response:
+
+    my_headers = {
+        "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36", 
+        "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+    }
+
     while True:
         try:
-            request = requests.get(url)
+            request = requests.get(url, headers=my_headers)
             if "200" not in str(request):
                 raise ConnectionError
 

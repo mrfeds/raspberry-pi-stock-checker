@@ -11,7 +11,13 @@ scrapers = {
     'Chicago Electronic': scrapers.scrape_chicago,
     'Sparkfun': scrapers.scrape_sparkfun,
     'Okdo': scrapers.scrape_okdo,
-    'Microcenter': scrapers.scrape_microcenter
+    'Microcenter': scrapers.scrape_microcenter,
+    'Rapid': scrapers.scrape_rapid,
+    'CPC': scrapers.scrape_cpc,
+    'SB': scrapers.scrape_sb,
+    'Coolcomponents': scrapers.scrape_coolcomponents,
+    'Thepihut': scrapers.scrape_thepihut,
+    'Pimoroni': scrapers.scrape_pimoroni
 }
 
 
